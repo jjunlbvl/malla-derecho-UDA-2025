@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Derecho UDA 2020</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .semestre {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    .semestre-header {
+      background-color: #444;
+      color: white;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .ramos-list {
+      display: none;
+      padding: 15px;
+      background-color: white;
+    }
+    .ramo {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .especialidad { background-color: #d1f0d1; }
+    .general { background-color: #fff7c2; }
+    .practica { background-color: #cdeaff; }
+    .optativa { background-color: #ffd1ec; }
+    .electiva { background-color: #e3c6ff; }
+  </style>
+</head>
+<body>
+  <h1>Malla Interactiva Derecho UDA 2020</h1>
+  <div id="contenedor-malla"></div>
+
+  <script>
+    const malla = [
+      // Aquí se insertarán todos los semestres, desde el 1 al 10, con todos los ramos y datos
+    ];
+
+    const contenedor = document.getElementById("contenedor-malla");
+
+    malla.forEach(({ semestre, ramos }) => {
+      const semestreDiv = document.createElement("div");
+      semestreDiv.className = "semestre";
+
+      const header = document.createElement("div");
+      header.className = "semestre-header";
+      header.textContent = semestre;
+      semestreDiv.appendChild(header);
+
+      const lista = document.createElement("div");
+      lista.className = "ramos-list";
+
+      ramos.forEach(({ nombre, creditos, tipo, prereq }) => {
+        const ramo = document.createElement("div");
+        ramo.className = `ramo ${tipo}`;
+        ramo.innerHTML = `<strong>${nombre}</strong> (${creditos} créditos)` +
+          (prereq ? `<br><em>Prerrequisito: ${prereq}</em>` : "");
+        lista.appendChild(ramo);
+      });
+
+      semestreDiv.appendChild(lista);
+      contenedor.appendChild(semestreDiv);
+
+      header.addEventListener("click", () => {
+        lista.style.display = lista.style.display === "block" ? "none" : "block";
+      });
+    });
+  </script>
+</body>
+</html>
